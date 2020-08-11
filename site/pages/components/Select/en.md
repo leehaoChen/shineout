@@ -42,3 +42,4 @@
 | noCache | boolean | false | data cache, if data change asynchronously, better set true |
 | compressedClassName | string | none | compressed popover classname |
 | onCollapse | (collapse: boolean) => void | none | option list collapse callback |
+| onFocus | (e: Event) => void | none | callback event when select focus |
