@@ -72,7 +72,7 @@ class Range extends PureComponent {
   }
 
   handleChange(index, date, change, end, mode) {
-    const { type, range, min, max } = this.props
+    const { type, range, min, max, resetWithDefaultTime } = this.props
 
     if (!change) {
       const current = immer(this.props.current, draft => {
@@ -131,7 +131,11 @@ class Range extends PureComponent {
       return
     }
 
-    utils.cloneTime(date, this.props.value[index])
+    if (!resetWithDefaultTime) {
+      // if resetWithDefaultTime is false, use incoming time
+      utils.cloneTime(date, this.props.value[index])
+    }
+
     if (min && utils.compareAsc(date, min) <= 0) {
       utils.setTime(date, min)
     }
@@ -268,6 +272,7 @@ Range.propTypes = {
   quicks: PropTypes.array,
   min: PropTypes.object,
   max: PropTypes.object,
+  resetWithDefaultTime: PropTypes.bool,
 }
 
 Range.defaultProps = {

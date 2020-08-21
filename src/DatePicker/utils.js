@@ -44,11 +44,13 @@ function isInvalid(date) {
 
 function toDateWithFormat(dirtyDate, fmt, def) {
   let date
-  if (typeof dirtyDate === 'string')
+  if (typeof dirtyDate === 'string') {
     date = parse(dirtyDate, fmt, new Date(), {
       weekStartsOn: getLocale('startOfWeek'),
     })
-  else date = toDate(dirtyDate)
+  } else {
+    date = toDate(dirtyDate)
+  }
 
   if (isInvalid(date)) date = toDate(dirtyDate)
   if (isInvalid(date)) date = def
@@ -72,7 +74,8 @@ function setTime(date, old) {
   date.setHours(old.getHours())
   date.setMinutes(old.getMinutes())
   date.setSeconds(old.getSeconds())
-
+  // dont forget milliseconds
+  date.setMilliseconds(old.getMilliseconds())
   return date
 }
 
@@ -110,6 +113,24 @@ function compareDateArray(arr1, arr2, type = 'date') {
   })
 }
 
+/**
+ * get time format from fmt
+ * @param {string} fmt datetime format
+ * @description example 'yyyy-MM-dd hh:mm:ss.SSS' => 'hh:mm:ss.SSS'
+ * @returns {string} time format
+ */
+function getTimeFormat(fmt) {
+  if (!fmt) return ''
+  const matchs = ['h+', 'H+', 'm+', 's+', 'S+'].reduce((acc, cur) => {
+    if (new RegExp(cur).test(fmt)) {
+      acc.push(RegExp.lastMatch)
+    }
+    return acc
+  }, [])
+  if (!matchs || matchs.length < 1) return ''
+  return fmt.slice(fmt.indexOf(matchs[0]))
+}
+
 export default {
   clearHMS,
   addDays,
@@ -134,4 +155,5 @@ export default {
   formatDateWithDefaultTime,
   compareDateArray,
   TIME_FORMAT,
+  getTimeFormat,
 }

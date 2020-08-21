@@ -30,6 +30,7 @@
 | min | string \| number \| Date | none | option min value |
 | max | string \| number \| Date | none | option max value |
 | defaultRangeMonth | number[] \| Date[] | - | The initial month of range selection, the value is a time object, valid only in range mode, and the priority is lower than value and defaultValue | 
+| resetWithDefaultTime | boolean | false | When type=datetime or format contains a time format, use this field to format the time field. | 
 
 ### DatePickerFormat
 

@@ -43,11 +43,15 @@ class Day extends PureComponent {
 
   formatWithDefaultTime(i) {
     let idx = 0
-    const { current, defaultTime, index } = this.props
+    const { current, defaultTime, index, format, resetWithDefaultTime } = this.props
     if (typeof index === 'number') idx = index
     if (typeof i === 'number') idx = i
     if (!defaultTime[idx]) return current
-    return utils.cloneTime(current, defaultTime[idx], utils.TIME_FORMAT)
+    return utils.cloneTime(
+      current,
+      defaultTime[idx],
+      resetWithDefaultTime ? utils.getTimeFormat(format) || utils.TIME_FORMAT : null
+    )
   }
 
   handleDayDoubleClick(date) {
@@ -74,7 +78,9 @@ class Day extends PureComponent {
         date.getDate(),
         current.getHours(),
         current.getMinutes(),
-        current.getSeconds()
+        current.getSeconds(),
+        // dont forget milliseconds
+        current.getMilliseconds()
       )
       // only can select day with the same day of min/max
       if (min && utils.compareAsc(newDate, min) < 0) utils.setTime(newDate, min)
@@ -216,6 +222,10 @@ class Day extends PureComponent {
       if (match) format = match[0]
     }
 
+    // remove milliseconds, because time select dont support milliseconds picker
+    // reg milliseconds => S
+    format = format.replace(/\W(S).*/g, '')
+
     const value = rangeDate ? utils.toDateWithFormat(rangeDate[index], format) : this.props.value
     if (!value) return undefined
 
@@ -301,6 +311,7 @@ Day.propTypes = {
   value: PropTypes.object,
   defaultTime: PropTypes.array,
   allowSingle: PropTypes.bool,
+  resetWithDefaultTime: PropTypes.bool,
 }
 
 export default Day

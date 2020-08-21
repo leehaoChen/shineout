@@ -271,7 +271,7 @@ class Container extends PureComponent {
     const format = this.getFormat()
 
     let value
-    if (this.props.range)
+    if (this.props.range) {
       value = date.map(v =>
         v
           ? utils.format(v, format, {
@@ -279,10 +279,11 @@ class Container extends PureComponent {
             })
           : v
       )
-    else
+    } else {
       value = utils.format(date, format, {
         weekStartsOn: getLocale('startOfWeek'),
       })
+    }
 
     let callback
     if (!this.props.range) callback = blur ? this.handleBlur : undefined
@@ -390,7 +391,7 @@ class Container extends PureComponent {
   renderPicker() {
     if (!this.firstRender) return undefined
 
-    const { range, type, value, min, max, disabled, allowSingle } = this.props
+    const { range, type, value, min, max, disabled, allowSingle, resetWithDefaultTime } = this.props
     const format = this.getFormat()
     const quicks = this.getQuick(format)
     const Component = range ? Range : Picker
@@ -412,6 +413,7 @@ class Container extends PureComponent {
         handleHover={this.handleHover}
         min={DateFns.toDateWithFormat(min, format)}
         max={DateFns.toDateWithFormat(max, format)}
+        resetWithDefaultTime={resetWithDefaultTime}
       >
         {this.props.children}
       </Component>
@@ -474,6 +476,7 @@ Container.propTypes = {
   min: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   max: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.object]),
   defaultRangeMonth: PropTypes.array,
+  resetWithDefaultTime: PropTypes.bool,
 }
 
 Container.defaultProps = {
@@ -482,6 +485,7 @@ Container.defaultProps = {
   type: 'date',
   allowSingle: false,
   defaultRangeMonth: [],
+  resetWithDefaultTime: false, // reset time value with defaultTime in datetime or format with time
 }
 
 export default Container

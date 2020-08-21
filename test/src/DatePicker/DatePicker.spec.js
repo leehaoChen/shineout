@@ -185,7 +185,7 @@ describe('DatePicker[datetime][defaultTime]', () => {
 describe('RangePicker[datetime][defaultTime]', () => {
   test('should render time equal default', () => {
     const defaultTime = ['02:33:33', '12:33:33']
-    const wrapper = mount(<DatePicker range type="datetime" defaultTime={defaultTime} />)
+    const wrapper = mount(<DatePicker range type="datetime" resetWithDefaultTime defaultTime={defaultTime} />)
     document.write(wrapper.html())
     wrapper.find(`.${SO_PREFIX}-datepicker-inner`).simulate('click')
     wrapper

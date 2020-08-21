@@ -30,6 +30,7 @@
 | min | string \| number \| Date | 无 | 可选最小值 |
 | max | string \| number \| Date | 无 | 可选最大值 |
 | defaultRangeMonth | number[] \| Date[] | 无 | 范围选择的初始月份, 值为时间对象 或者时间戳, 仅在 range 模式下生效, 优先级低于 value 和 defaultValue | 
+| resetWithDefaultTime | boolean | false | type=datetime或者format含有时间格式时，使用该字段来格式化时间字段。 |
 
 ### DatePickerFormat
 

@@ -166,6 +166,15 @@ const examples = [
     component: require('doc/pages/components/DatePicker/example-13-absolute.js').default,
     rawText: require('!raw-loader!doc/pages/components/DatePicker/example-13-absolute.js'),
   },
+  {
+    name: '14-reset-with-defaultTime',
+    title: locate(
+      '使用DefaultTime格式化时间 \n type=datetime或者format含有时间格式时，可以使用 resetWithDefaultTime 来格式化时间字段。注意：如果传入的defaultTime与format格式不一致，将会保留原本的Time值。',
+      'use DefaultTime to format time \n When type=datetime or format contains a time format, you can use resetWithDefaultTime to format the time field. Note: If the incoming defaultTime is inconsistent with the format, the original Time value will be retained.'
+    ),
+    component: require('doc/pages/components/DatePicker/example-14-reset-with-defaultTime.js').default,
+    rawText: require('!raw-loader!doc/pages/components/DatePicker/example-14-reset-with-defaultTime.js'),
+  },
 ]
 
 const codes = undefined
